@@ -6,7 +6,7 @@ const searcherFastFat = new SearcherFastFat(data);
 const searcherSlowSlender = new SearcherSlowSlender(data);
 
 document.getElementById('search-ff').addEventListener('input', function() {
-    const suggested = searcherFastFat.suggest(this.value.trim());
+    const suggested = searcherFastFat.suggest(this.value.trim(), 10);
     if (suggested) {
         document.getElementById('suggested-ff').innerText =
             suggested.toString();
@@ -15,7 +15,7 @@ document.getElementById('search-ff').addEventListener('input', function() {
     }
 });
 document.getElementById('search-ss').addEventListener('input', function() {
-    const suggested = searcherSlowSlender.suggest(this.value.trim());
+    const suggested = searcherSlowSlender.suggest(this.value.trim(), 10);
     if (suggested) {
         document.getElementById('suggested-ss').innerText =
             suggested.toString();

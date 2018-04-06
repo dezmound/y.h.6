@@ -103,9 +103,12 @@ class SearcherSlowSlender extends Searcher {
     suggest(string, limitations = -1) {
         const _result = [];
         string = string.toLocaleLowerCase();
-        this._data.forEach((value, index) => {
+        this._data.some((value, index) => {
             if (string && value.indexOf(string) >= 0) {
                 _result.push(this._cached[index]);
+            }
+            if (limitations > 0 && limitations <= _result.length) {
+                return true;
             }
         });
         return _result.slice(0, limitations);
