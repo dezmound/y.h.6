@@ -1,7 +1,7 @@
 /**
  * Обработчик событий.
  */
-class Emmiter {
+class Emitter {
     /**
      * Конструктор класса.
      */
@@ -12,6 +12,7 @@ class Emmiter {
      * Подписка на события.
      * @param {string} event
      * @param {callbackfn} handler
+     * @return {this}
      */
     on(event, handler) {
         let oldHandlers;
@@ -21,29 +22,32 @@ class Emmiter {
         } else {
             this.events.set(event, [handler]);
         }
+        return this;
     }
     /**
      * Отписка от события.
      * @param {string} event
      * @param {callbackfn} handler
+     * @return {this}
      */
     off(event, handler) {
         let oldHandlers;
         if (oldHandlers = this.events.get(event)) {
-            this.events.set(event, oldHandlers.splice(
-                oldHandlers.indexOf(handler) - 1, 1)
-            );
+            oldHandlers.splice(oldHandlers.indexOf(handler), 1);
         }
+        return this;
     }
     /**
      * Вызов события.
      * @param {string} event
+     * @return {this}
      */
-    emmit(event) {
+    emit(event) {
         const events = this.events.get(event) || [];
         events.forEach((handler) => {
             handler();
         });
+        return this;
     }
 }
-export default Emmiter;
+export default Emitter;
